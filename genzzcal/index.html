@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>原区零计算器</title>
+	<link rel="shortcut icon" href="https://img-static.mihoyo.com/communityweb/upload/56dee02b8e79479f1d9256e56b95552c.png" type="image/x-icon">
+</head>
+<body>
+<style type="text/css">
+	body {background-color: #333333;color: #ffffff;display: flex;justify-content: center;}
+	#header {min-height: 5rem;}
+	#main {padding: 1rem;}
+	#main_center {max-width: 30rem;}
+	#main_center.row {padding: 1rem .5rem;}
+	#main_center * {margin: auto; margin-right: .5rem; margin-bottom: .3rem;}
+	#main_center p {float: left; clear: left;}
+	#main_center input {float: right; clear: right; padding: 0; max-width: 40%;}
+</style>
+	<div id="header"></div>
+	<div id="main">
+		<div id="main_center">
+			<div class="row">
+				<div id="form">
+					<p>* 请勿使用百分数</p>
+					<p>攻击力/防御力</p>
+					<input type="text" name="ATK" autocomplete="off">
+					<p>暴击率</p>
+					<input type="text" name="CRITRATE" autocomplete="off">
+					<p>暴击伤害</p>
+					<input type="text" name="CRITDMG" autocomplete="off">
+					<p>额外加伤</p>
+					<input type="text" name="PLUSDMG" autocomplete="off">
+					<p>元素加成</p>
+					<input type="text" name="ELMTADD" autocomplete="off">
+					<p>技能倍率</p>
+					<input type="text" name="multiply" autocomplete="off" value="1">
+					<p>乘区</p>
+					<input type="text" name="EXmultiply" autocomplete="off">
+					<p>减抗（正数）</p>
+					<input type="text" name="debuff" autocomplete="off">
+					<p>* 敌人防御属性以0.1计算</p>
+
+					<input id="submit" type="submit" value="计算" onclick="calculate()">
+				</div>
+				<p id="DMG"></p>
+				<p id="AVDMG"></p>
+				<div contenteditable="true" style="float: inherit; border: solid 1px grey; height: 10rem; width: 90%; padding: 1rem 4%; background-color: #ffffff; color: #000000; margin: auto; overflow: hidden;"></div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		function calculate() {
+			var a = new Number(document.getElementsByName("ATK")[0].value), crr = new Number(document.getElementsByName("CRITRATE")[0].value), crd = new Number(document.getElementsByName("CRITDMG")[0].value), pd = new Number(document.getElementsByName("PLUSDMG")[0].value), ea = new Number(document.getElementsByName("ELMTADD")[0].value), m = new Number(document.getElementsByName("multiply")[0].value), em = new Number(document.getElementsByName("EXmultiply")[0].value), db = new Number(document.getElementsByName("debuff")[0].value);
+			var damage = (a * (1 + crd) + pd) * (1 + ea) * m * (1 + em) * (0.9 + db);
+			var averdamage = (a * (1 + crr * crd) + pd) * (1 + ea) * m * (1 + em) * (0.9 + db);
+			document.getElementById("DMG").innerHTML = "暴击伤害：" + damage;
+			document.getElementById("AVDMG").innerHTML = "平均伤害：" + averdamage;
+		}
+	</script>
+</body>
+</html>
