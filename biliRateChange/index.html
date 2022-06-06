@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>B站倍速拓展油猴脚本代码</title>
+</head>
+<body>
+
+<xmp>// ==UserScript==
+// @name         B站倍速拓展
+// @version      0.1
+// @description  拓展倍速
+// @match        https://www.bilibili.com/video/*
+// @grant        none
+// ==/UserScript==
+
+(function() {
+    'use strict';
+    function speedAdd() {
+        document.getElementsByClassName("bilibili-player-video-btn-speed-menu")[0].innerHTML = '<li class="bilibili-player-video-btn-speed-menu-list" data-value="4.0">4.0x</li><li class="bilibili-player-video-btn-speed-menu-list" data-value="3.0">3.0x</li><li class="bilibili-player-video-btn-speed-menu-list" data-value="2">2.0x</li><li class="bilibili-player-video-btn-speed-menu-list" data-value="1.5">1.5x</li><li class="bilibili-player-video-btn-speed-menu-list" data-value="1.25">1.25x</li><li class="bilibili-player-video-btn-speed-menu-list bilibili-player-active" data-value="1">1.0x</li><li class="bilibili-player-video-btn-speed-menu-list" data-value="0.75">0.75x</li><li class="bilibili-player-video-btn-speed-menu-list" data-value="0.5">0.5x</li><li class="bilibili-player-video-btn-speed-menu-list" data-value="0.25">0.25x</li>';
+        var o = document.getElementsByClassName("bilibili-player-video-btn-speed-menu-list");
+        for (var i = 0; i < o.length; i++) {
+            o[i].setAttribute("onclick",'var v = document.getElementsByTagName("video")[0] ? document.getElementsByTagName("video")[0] : document.getElementsByTagName("bwp-video")[0];v.playbackRate = ' + o[i].getAttribute("data-value") + ';document.getElementsByClassName("bilibili-player-video-btn-speed-menu-list bilibili-player-active")[0].classList.remove("bilibili-player-active");this.classList.add("bilibili-player-active");document.getElementsByClassName("bilibili-player-video-btn bilibili-player-video-btn-speed")[0].classList.remove("bilibili-player-speed-show");document.getElementsByClassName("bilibili-player-video-btn-speed-name")[0].innerHTML = "'+ o[i].innerHTML+'";');
+        }
+    }
+    setTimeout(speedAdd,2000);
+    var href = location.href;
+    setInterval(function() {if (href != location.href) {href = location.href;speedAdd();}},2000);
+})();
+</xmp>
+
+</body>
+</html>
