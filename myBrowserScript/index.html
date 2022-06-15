@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>myBrowserScript</title>
+    <link rel="shortcut icon" href="https://github.githubassets.com/favicons/favicon.png" type="image/x-icon">
+</head>
+<body>
+<xmp>
+3. QQ邮箱自动宽度
+// ==UserScript==
+// @name         QQ邮箱自动宽度
+// @version      0.1
+// @description  令QQ邮箱宽度自动
+// @author       You
+// @match        https://mail.qq.com/*
+// @grant        none
+// ==/UserScript==
+
+(function() {
+    'use strict';
+        document.body.style.overflowY = "scroll";
+        setInterval(function() {try{document.getElementsByClassName("pd1")[0].style.minWidth = "0";}catch(err){}},2000);
+    // Your code here...
+})();
+
+2. 掌阅复制
+// ==UserScript==
+// @name         掌阅复制
+// @version      0.1
+// @description  解决掌阅不能复制文本的脚本
+// @author       You
+// @match        https://www.ireader.com.cn/*
+// @grant        none
+// ==/UserScript==
+
+(function() {
+    'use strict';
+    function inincopy() {
+        // 恢复右键菜单
+        document.oncontextmenu = function() {
+            return true;
+        }
+        // 恢复选择
+        document.onselectstart = function() {
+            return true;
+        }
+        // 恢复拷贝 IE、Chrome
+        document.onbeforecopy = function() {
+            return true;
+        }
+        // 恢复选择
+        document.onmouseup = function() {
+            return true;
+        }
+        // 恢复拷贝
+        document.oncopy = function() {
+            return true;
+        }
+        // 恢复选择
+        document.onselect = function() {
+            return true;
+        }
+        document.body.setAttribute("style","user-select: auto;");
+    }
+    setTimeout(inincopy,500);
+    //var obj = new Object(window.frames["iframe_chapter"].document.getElementsByClassName("h5_mainbody")[0]);
+    //obj.setAttribute("style","user-select: auto;");
+    //document.getElementsByClassName("conRightTop")[0].setAttribute("onClick","location.assign('https://www.ireader.com.cn"+document.getElementById("iframe_chapter").getAttribute("src")+"')");
+    // Your code here...
+})();
+
+1. B站倍速拓展
+// ==UserScript==
+// @name         B站倍速拓展
+// @version      0.1
+// @description  拓展倍速
+// @match        https://www.bilibili.com/video/*
+// @grant        none
+// ==/UserScript==
+
+(function() {
+    'use strict';
+    function speedAdd() {
+        document.getElementsByClassName("bilibili-player-video-btn-speed-menu")[0].innerHTML = '<li class="bilibili-player-video-btn-speed-menu-list" data-value="4.0">4.0x</li><li class="bilibili-player-video-btn-speed-menu-list" data-value="3.0">3.0x</li><li class="bilibili-player-video-btn-speed-menu-list" data-value="2">2.0x</li><li class="bilibili-player-video-btn-speed-menu-list" data-value="1.5">1.5x</li><li class="bilibili-player-video-btn-speed-menu-list" data-value="1.25">1.25x</li><li class="bilibili-player-video-btn-speed-menu-list bilibili-player-active" data-value="1">1.0x</li><li class="bilibili-player-video-btn-speed-menu-list" data-value="0.75">0.75x</li><li class="bilibili-player-video-btn-speed-menu-list" data-value="0.5">0.5x</li><li class="bilibili-player-video-btn-speed-menu-list" data-value="0.25">0.25x</li>';
+        var o = document.getElementsByClassName("bilibili-player-video-btn-speed-menu-list");
+        for (var i = 0; i < o.length; i++) {
+            o[i].setAttribute("onclick",'var v = document.getElementsByTagName("video")[0] ? document.getElementsByTagName("video")[0] : document.getElementsByTagName("bwp-video")[0];v.playbackRate = ' + o[i].getAttribute("data-value") + ';document.getElementsByClassName("bilibili-player-video-btn-speed-menu-list bilibili-player-active")[0].classList.remove("bilibili-player-active");this.classList.add("bilibili-player-active");document.getElementsByClassName("bilibili-player-video-btn bilibili-player-video-btn-speed")[0].classList.remove("bilibili-player-speed-show");document.getElementsByClassName("bilibili-player-video-btn-speed-name")[0].innerHTML = "'+ o[i].innerHTML+'";');
+        }
+    }
+    setTimeout(speedAdd,2000);
+    var href = location.href;
+    setInterval(function() {if (href != location.href) {href = location.href;speedAdd();}},2000);
+})();
+</xmp>
+</body>
+</html>
